@@ -1,6 +1,5 @@
 package com.akademiaIT.orders.servisies;
 
-import com.akademiaIT.orders.model.domain.Product;
 import com.akademiaIT.orders.model.dto.ProductRequestDto;
 import com.akademiaIT.orders.model.mapper.ProductMapper;
 import com.akademiaIT.orders.repository.ProductRepository;
