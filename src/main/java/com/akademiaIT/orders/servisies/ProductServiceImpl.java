@@ -1,9 +1,12 @@
 package com.akademiaIT.orders.servisies;
 
 import com.akademiaIT.orders.model.dto.ProductRequestDto;
+import com.akademiaIT.orders.model.dto.ProductResponceDto;
 import com.akademiaIT.orders.model.mapper.ProductMapper;
 import com.akademiaIT.orders.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -18,5 +21,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void addProduct(ProductRequestDto productRequestDto) {
         productRepository.save(productMapper.toEntity(productRequestDto));
+    }
+
+    @Override
+    public List<ProductResponceDto> getAllProducts() {
+        return productRepository
+                .findAll()
+                .stream()
+                .map(product -> productMapper.fromEntity(product))
+                .toList();
     }
 }

@@ -1,8 +1,12 @@
 package com.akademiaIT.orders.model.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
+@Getter
 @Table(name = "products")
 public class ProductEntity {
     @Id
