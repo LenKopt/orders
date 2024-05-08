@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
     private static Integer getQuantityOfProduct(ProductEntity product, Integer countToOrder) {
         Integer countOfProduct = product.getQuantity();
         if (countOfProduct < countToOrder) {
-            throw new RuntimeException("Nie mamy takiej ilości tego produktu");
+            throw new OrderServiceException("Nie mamy takiej ilości tego produktu");
         }
         return countOfProduct;
     }
@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
     private ProductEntity getProductByName(OrderRequestDto orderRequestDto) {
         ProductEntity product = productRepository.findByName(orderRequestDto.getProductName());
         if (product == null) {
-            throw new RuntimeException("Nie mamy takiego produktu!");
+            throw new OrderServiceException("Nie mamy takiego produktu!");
         }
         return product;
     }
