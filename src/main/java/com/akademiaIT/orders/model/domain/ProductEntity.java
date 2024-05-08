@@ -19,4 +19,8 @@ public class ProductEntity {
         this.name = name;
         this.quantity = quantity;
     }
+
+    public void decreaseQuantity(Integer amountToChange) {
+        quantity -= amountToChange;
+    }
 }

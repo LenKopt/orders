@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class OrderRequestDto {
+public class OrderResponceDto {
     private Long id;
     private String productName;
     private Integer quantityOrdered;

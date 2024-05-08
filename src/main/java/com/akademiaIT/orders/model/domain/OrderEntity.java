@@ -12,10 +12,6 @@ public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    //@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "products",
-            joinColumns = @JoinColumn(name = "name"))
     private String productName;
     private Integer quantityOrdered;
 
