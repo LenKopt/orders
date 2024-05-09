@@ -17,8 +17,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 class OrderServiceImplTest {
-    public final String NAME_PRODUCT = "coffee";
-    public final Integer QUANTITY_PRODUCT = 100;
+    public final String NAME_EXIST_PRODUCT = "coffee";
+    public final String NAME_NOT_EXIST_PRODUCT = "tea";
+    public final Integer QUANTITY_EXIST_PRODUCT = 100;
+    public final Integer QUANTITY_ORDERED_LESS = 90;
     @Autowired
     private OrderService orderService;
     @Autowired
@@ -31,17 +33,18 @@ class OrderServiceImplTest {
     @AfterEach
     void tearDown() {
         orderRepository.deleteAll();
+        productRepository.deleteAll();
     }
 
     private void addAtLeastOneProduct() {
-        ProductRequestDto productRequestDto = new ProductRequestDto(NAME_PRODUCT, QUANTITY_PRODUCT);
+        ProductRequestDto productRequestDto = new ProductRequestDto(NAME_EXIST_PRODUCT, QUANTITY_EXIST_PRODUCT);
         productService.addProduct(productRequestDto);
     }
 
     @Test
     void adding_order_successfully() {
         //given
-        OrderRequestDto orderRequestDto = new OrderRequestDto(NAME_PRODUCT, 100);
+        OrderRequestDto orderRequestDto = new OrderRequestDto(NAME_EXIST_PRODUCT, QUANTITY_EXIST_PRODUCT);
         addAtLeastOneProduct();
         //when
         orderService.addOrder(orderRequestDto);
@@ -53,7 +56,7 @@ class OrderServiceImplTest {
     void adding_order_when_product_not_exist() {
         //given
         addAtLeastOneProduct();
-        OrderRequestDto orderRequestDto = new OrderRequestDto("tea", 100);
+        OrderRequestDto orderRequestDto = new OrderRequestDto(NAME_NOT_EXIST_PRODUCT, QUANTITY_EXIST_PRODUCT);
         //when
         Executable e = () -> orderService.addOrder(orderRequestDto);
         //then
