@@ -15,6 +15,6 @@ public class OrderMapper {
     }
 
     public OrderResponceDto fromEntity(OrderEntity orderEntity) {
-        return new OrderResponceDto(orderEntity.getId(), orderEntity.getProductName(), orderEntity.getQuantityOrdered());
+        return new OrderResponceDto(orderEntity.getProductName(), orderEntity.getQuantityOrdered());
     }
 }

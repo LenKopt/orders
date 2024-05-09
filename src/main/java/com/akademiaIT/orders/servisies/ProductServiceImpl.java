@@ -1,5 +1,6 @@
 package com.akademiaIT.orders.servisies;
 
+import com.akademiaIT.orders.model.domain.ProductEntity;
 import com.akademiaIT.orders.model.dto.ProductRequestDto;
 import com.akademiaIT.orders.model.dto.ProductResponceDto;
 import com.akademiaIT.orders.model.mapper.ProductMapper;
@@ -7,6 +8,7 @@ import com.akademiaIT.orders.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -30,5 +32,10 @@ public class ProductServiceImpl implements ProductService {
                 .stream()
                 .map(product -> productMapper.fromEntity(product))
                 .toList();
+    }
+
+    @Override
+    public Optional<ProductEntity> findByName(String name) {
+        return productRepository.findByName(name);
     }
 }

@@ -12,6 +12,6 @@ public class ProductMapper {
     }
 
     public ProductResponceDto fromEntity(ProductEntity productEntity) {
-        return new ProductResponceDto(productEntity.getId(), productEntity.getName(), productEntity.getQuantity());
+        return new ProductResponceDto(productEntity.getName(), productEntity.getQuantity());
     }
 }

@@ -1,5 +1,6 @@
 package com.akademiaIT.orders.model.domain;
 
+import com.akademiaIT.orders.servisies.OrderServiceException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,10 @@ public class ProductEntity {
         this.quantity = quantity;
     }
 
-    public void decreaseQuantity(Integer amountToChange) {
+    public void updateProductQuantity(Integer amountToChange) {
+        if (quantity < amountToChange) {
+            throw new OrderServiceException("Nie mamy takiej ilości tego produktu");
+        }
         quantity -= amountToChange;
     }
 }

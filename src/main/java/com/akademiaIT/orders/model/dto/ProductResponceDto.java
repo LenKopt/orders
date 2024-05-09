@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProductResponceDto {
-
-    private Long productId;
     private String productName;
     private Integer quantity;
 }
