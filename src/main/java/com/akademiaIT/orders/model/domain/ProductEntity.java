@@ -1,8 +1,13 @@
 package com.akademiaIT.orders.model.domain;
 
+import com.akademiaIT.orders.servisies.OrderServiceException;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
+@Getter
 @Table(name = "products")
 public class ProductEntity {
     @Id
@@ -14,5 +19,16 @@ public class ProductEntity {
     public ProductEntity(String name, Integer quantity) {
         this.name = name;
         this.quantity = quantity;
+    }
+
+    public void updateProductQuantity(Integer amountToChange) {
+        if (quantity < amountToChange) {
+            throw new OrderServiceException("Nie mamy takiej ilości tego produktu");
+        }
+        quantity -= amountToChange;
+    }
+
+    public boolean isQuantityEqualZero() {
+        return quantity == 0;
     }
 }
