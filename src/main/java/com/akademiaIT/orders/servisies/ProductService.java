@@ -9,6 +9,11 @@ import java.util.Optional;
 
 public interface ProductService {
     public void addProduct(ProductRequestDto productRequestDto);
+
     public List<ProductResponceDto> getAllProducts();
-    Optional<ProductEntity> findByName(String name);
+
+    public Optional<ProductEntity> findByName(String name);
+
+    public void deleteProduct(ProductEntity productEntity);
+
 }

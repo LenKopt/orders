@@ -27,4 +27,8 @@ public class ProductEntity {
         }
         quantity -= amountToChange;
     }
+
+    public boolean isQuantityEqualZero() {
+        return quantity == 0;
+    }
 }

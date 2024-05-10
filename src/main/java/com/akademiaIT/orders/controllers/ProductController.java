@@ -22,7 +22,7 @@ public class ProductController {
         return "add product was added succesfully!";
     }
     @GetMapping("getAllProducts")
-    public List<ProductResponceDto> getAllDoctors() {
+    public List<ProductResponceDto> getAllProducts() {
         return productService.getAllProducts();
     }
 }

@@ -1,8 +1,8 @@
 package com.akademiaIT.orders.servisies;
 
+import com.akademiaIT.orders.model.domain.OrderEntity;
 import com.akademiaIT.orders.model.dto.OrderRequestDto;
 import com.akademiaIT.orders.model.dto.ProductRequestDto;
-import com.akademiaIT.orders.model.dto.ProductResponceDto;
 import com.akademiaIT.orders.repository.OrderRepository;
 import com.akademiaIT.orders.repository.ProductRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -12,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.test.web.servlet.result.StatusResultMatchersExtensionsKt.isEqualTo;
 
 @SpringBootTest
 class OrderServiceImplTest {
@@ -36,26 +39,28 @@ class OrderServiceImplTest {
         productRepository.deleteAll();
     }
 
-    private void addAtLeastOneProduct() {
-        ProductRequestDto productRequestDto = new ProductRequestDto(NAME_EXIST_PRODUCT, QUANTITY_EXIST_PRODUCT);
-        productService.addProduct(productRequestDto);
+    private ProductRequestDto prepareProductRequestDto() {
+        return new ProductRequestDto(NAME_EXIST_PRODUCT, QUANTITY_EXIST_PRODUCT);
     }
 
     @Test
     void adding_order_successfully() {
         //given
         OrderRequestDto orderRequestDto = new OrderRequestDto(NAME_EXIST_PRODUCT, QUANTITY_EXIST_PRODUCT);
-        addAtLeastOneProduct();
+        ProductRequestDto productRequestDto = prepareProductRequestDto();
+        productService.addProduct(productRequestDto);
         //when
         orderService.addOrder(orderRequestDto);
+        List<OrderEntity> all = orderRepository.findAll();
         //then
-        assertThat(orderRepository.findAll().stream().toList().size()).isEqualTo(1);
+        assertThat(all.size()).isEqualTo(1);
     }
 
     @Test
     void adding_order_when_product_not_exist() {
         //given
-        addAtLeastOneProduct();
+        ProductRequestDto productRequestDto = prepareProductRequestDto();
+        productService.addProduct(productRequestDto);
         OrderRequestDto orderRequestDto = new OrderRequestDto(NAME_NOT_EXIST_PRODUCT, QUANTITY_EXIST_PRODUCT);
         //when
         Executable e = () -> orderService.addOrder(orderRequestDto);
